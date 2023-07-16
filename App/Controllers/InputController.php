@@ -8,10 +8,17 @@ class InputController
     {
         if (isset($_POST["firstName"]) && isset($_POST["lastName"]) && isset($_POST["birthday"]) && isset($_POST["report"])
             && isset($_POST["country"]) && isset($_POST["phone"]) && isset($_POST["email"])) {
+
             $config = require ('config.php');
-            $conn = new \mysqli("localhost", "root", "root", "test");
+            $host = $config['host'];
+            $port = $config['port'];
+            $username = $config['username'];
+            $password = $config['password'];
+            $dbname = $config['dbname'];
+
+            $conn = new \mysqli($host,$username, $password, $dbname, $port);
             if($conn->connect_error){
-                die("Ошибка: " . $conn->connect_error);
+                die("Error: " . $conn->connect_error);
             }
             $sql = "CREATE TABLE IF NOT EXISTS users (
                 id INTEGER AUTO_INCREMENT PRIMARY KEY, 
